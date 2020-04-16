@@ -117,7 +117,8 @@ interface Props {
   // Callback called when Auth0 redirects the user back to your application.
   // Auth0 includes a query string containing `state` and `code`. Normally you
   // want to redirect to a route without the query string. By default this this
-  // is implemented with `history.replace` and is exposed to isolate browser // // API dependencies and give you and integration point to your router.
+  // is implemented with `history.replace` and is exposed to isolate browser
+  // API dependencies and give you and integration point to your router.
   onLoginCallback?: (appState: any, loginRedirectUri: string) => void;
 
   // Callback called when the user is authenticated. This is a great place to
