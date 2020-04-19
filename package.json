@@ -1,6 +1,6 @@
 {
   "name": "@rturnq/solid-auth0",
-  "version": "0.1.0",
+  "version": "0.1.1-beta01",
   "description": "Auth0 integration for solid-js",
   "author": "Ryan Turnquist",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "dist"
   ],
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.6.5"
+    "@auth0/auth0-spa-js": "1.7.0"
   },
   "peerDependencies": {
     "solid-js": "^0.17.2"
