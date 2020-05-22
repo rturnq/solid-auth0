@@ -4,7 +4,7 @@ import { createResource } from 'solid-js';
 import { Auth0Context } from '../auth0Context';
 
 export interface Props {
-  children: JSX.Children;
+  children: JSX.Element;
   domain: string;
   audience: string;
   clientId: string;
