@@ -1,4 +1,5 @@
-import { RedirectLoginOptions, LogoutOptions, Auth0Client } from '@auth0/auth0-spa-js';
+// import { RedirectLoginOptions, LogoutOptions, Auth0Client } from '@auth0/auth0-spa-js';
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 
 export interface Auth0 {
   isInitialized: () => boolean;

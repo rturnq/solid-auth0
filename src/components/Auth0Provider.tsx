@@ -1,9 +1,10 @@
-import createAuth0Client, { Auth0Client } from '@auth0/auth0-spa-js';
+import createAuth0Client from '@auth0/auth0-spa-js';
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { createResource } from 'solid-js';
 import { Auth0Context } from '../auth0Context';
 
 export interface Props {
-  children: JSX.Children;
+  children: JSX.Element;
   domain: string;
   audience: string;
   clientId: string;

@@ -1,11 +1,11 @@
-import nodeResolve from '@rollup/plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import filesize from 'rollup-plugin-filesize';
 import pkg from './package.json';
 
 export default {
   plugins: [
-    nodeResolve({
+    resolve({
       extensions: ['.ts', '.tsx']
     }),
     babel({
@@ -19,7 +19,7 @@ export default {
 		filesize()
   ],
   input: 'src/index.ts',
-  external: ['solid-js', '@auth0/auth0-spa-js'],
+  external: ['solid-js', 'solid-js/dom', '@auth0/auth0-spa-js'],
   output: [
     { file: pkg.main, format: 'cjs' },
     { file: pkg.module, format: 'es' }
