@@ -33,7 +33,8 @@ export default (props: Props) => {
   let isAuthenticated = false;
   let user: any;
   let appState: any;
-  let isInitializing = init(
+  
+  init(
     createAuth0Client({
       domain: props.domain,
       client_id: props.clientId,
@@ -54,7 +55,6 @@ export default (props: Props) => {
         props.onAuthenticated && props.onAuthenticated(auth0Client, user, appState);
       }
 
-
       return auth0Client;
     })
   );
@@ -62,7 +62,7 @@ export default (props: Props) => {
   return (
     <Auth0Context.Provider
       value={{
-        isInitialized: () => !isInitializing(),
+        isInitialized: () => !auth0Client.loading,
         isAuthenticated: () => isAuthenticated,
         user: () => user,
         appState: () => appState,
