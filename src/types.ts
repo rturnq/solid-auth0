@@ -1,12 +1,11 @@
-// import { RedirectLoginOptions, LogoutOptions, Auth0Client } from '@auth0/auth0-spa-js';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+import type Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 
-export interface Auth0 {
+export interface Auth0State {
+  auth0Client: () => Auth0Client | undefined;
   isInitialized: () => boolean;
   isAuthenticated: () => boolean;
   user: () => any;
-  appState: () => any;
-  loginWithRedirect: (options?: RedirectLoginOptions) => void;
-  logout: (options?: LogoutOptions) => void;
-  auth0Client: () => Auth0Client;
+  loginWithRedirect: (options?: RedirectLoginOptions) => Promise<void>;
+  logout: (options?: LogoutOptions) => Promise<void>;
+  getToken(): Promise<string>;
 }
