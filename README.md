@@ -113,7 +113,7 @@ interface Props {
   // string containing `state` and `code`. Normally you want to redirect to a route without the
   // query string. By default this this is implemented with `window.history.replace` and is exposed
   // to isolate browser API dependencies and give you and integration point to your router.
-  onLoginCallback?: (appState: any, loginRedirectUri: string) => void;
+  onLogin?: (appState: any, loginRedirectUri: string) => void;
   
   // Children
   children: JSX.Children;

@@ -21,20 +21,22 @@ export interface Auth0Props {
   loginRedirectUri: string;
   logoutRedirectUri: string;
   getUrl?: () => string;
-  onLoginCallback?: (appState: any, loginRedirectUri: string) => void;
+  onLogin?: (appState: any, loginRedirectUri: string) => void;
 }
 
 export function Auth0(props: Auth0Props) {
   props = assignProps(
     {},
     {
-      onLoginCallback: onLoginCallback,
+      onLogin: onLogin,
       getUrl: getUrl
     },
     props
   );
   const [auth0Client, init] = createResource<Auth0Client>();
-  const [isAuthenticated, setIsAuthenticated] = createSignal<boolean | undefined>(undefined);
+  const [isAuthenticated, setIsAuthenticated] = createSignal<
+    boolean | undefined
+  >(undefined);
   const [user, setUser] = createSignal();
   const auth0ClientPromise = createAuth0Client({
     domain: props.domain,
@@ -47,9 +49,9 @@ export function Auth0(props: Auth0Props) {
     const client = await auth0ClientPromise;
     const url = props.getUrl!();
 
-    if (isRedirectCallback(url)) {
+    if (isRedirect(url)) {
       const { appState } = await client.handleRedirectCallback(url);
-      props.onLoginCallback!(appState, props.loginRedirectUri);
+      props.onLogin!(appState, props.loginRedirectUri);
     }
     if (setIsAuthenticated(await client.isAuthenticated())) {
       setUser(await client.getUser());
@@ -64,24 +66,23 @@ export function Auth0(props: Auth0Props) {
         isInitialized: () => isAuthenticated() !== undefined,
         isAuthenticated: () => !!isAuthenticated(),
         user,
-        loginWithRedirect(options?: RedirectLoginOptions) {
-          return auth0ClientPromise.then((client) =>
-            client.loginWithRedirect({
-              redirect_uri: props.loginRedirectUri,
-              ...options
-            })
-          );
+        async loginWithRedirect(options?: RedirectLoginOptions) {
+          const client = await auth0ClientPromise;
+          client.loginWithRedirect({
+            redirect_uri: props.loginRedirectUri,
+            ...options
+          });
         },
-        logout(options?: LogoutOptions) {
-          return auth0ClientPromise.then((client) =>
-            client.logout({
-              returnTo: props.logoutRedirectUri,
-              ...options
-            })
-          );
+        async logout(options?: LogoutOptions) {
+          const client = await auth0ClientPromise;
+          client.logout({
+            returnTo: props.logoutRedirectUri,
+            ...options
+          });
         },
-        getToken() {
-          return auth0ClientPromise.then((client) => client.getTokenSilently());
+        async getToken() {
+          const client = await auth0ClientPromise;
+          return await client.getTokenSilently();
         }
       }}
     >
@@ -90,7 +91,7 @@ export function Auth0(props: Auth0Props) {
   );
 }
 
-function isRedirectCallback(url: string) {
+function isRedirect(url: string) {
   const [, query] = url.split('?');
   return query && query.includes('code=') && query.includes('state=');
 }
@@ -99,6 +100,6 @@ function getUrl() {
   return window.location.href;
 }
 
-function onLoginCallback(_appState: any, loginRedirectUri: string) {
+function onLogin(_appState: any, loginRedirectUri: string) {
   window.history.replaceState(undefined, '', loginRedirectUri);
 }
