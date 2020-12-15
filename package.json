@@ -1,6 +1,6 @@
 {
   "name": "@rturnq/solid-auth0",
-  "version": "0.2.0-beta01",
+  "version": "0.2.0",
   "description": "Auth0 integration for solid-js",
   "author": "Ryan Turnquist",
   "license": "MIT",
