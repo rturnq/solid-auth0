@@ -1,5 +1,4 @@
 import createAuth0Client from '@auth0/auth0-spa-js';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import {
   createContext,
   useContext,
@@ -47,7 +46,7 @@ export function Auth0(props: Auth0Props) {
 
   const [user, setUser] = createSignal();
 
-  const [auth0Client] = createResource<Auth0Client>(async () => {
+  const [auth0Client] = createResource(async () => {
     const client = await auth0ClientPromise;
     const url = props.getUrl!();
 
