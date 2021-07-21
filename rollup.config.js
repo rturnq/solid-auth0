@@ -1,7 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import babel from "@rollup/plugin-babel";
 import filesize from 'rollup-plugin-filesize';
-import pkg from './package.json';
 
 export default {
   plugins: [
@@ -16,10 +15,10 @@ export default {
 		}),
 		filesize()
   ],
-  input: 'src/index.ts',
+  input: 'src/index.tsx',
   external: ['solid-js', 'solid-js/web', '@auth0/auth0-spa-js'],
   output: [
-    { file: pkg.main, format: 'cjs' },
-    { file: pkg.module, format: 'es' }
+    { file: 'dist/build/index.cjs.js', format: 'cjs' },
+    { file: 'dist/build/index.js', format: 'es' }
   ]
 };
