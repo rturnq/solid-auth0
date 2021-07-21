@@ -7,7 +7,7 @@ import {
   createSignal,
   JSX
 } from 'solid-js';
-import { assignProps } from 'solid-js/web';
+import { mergeProps } from 'solid-js/web';
 import { Auth0State } from './types';
 
 export const Auth0Context = createContext<Auth0State>();
@@ -25,7 +25,7 @@ export interface Auth0Props {
 }
 
 export function Auth0(props: Auth0Props) {
-  props = assignProps(
+  props = mergeProps(
     {},
     {
       onLogin: onLogin,
@@ -33,11 +33,7 @@ export function Auth0(props: Auth0Props) {
     },
     props
   );
-  const [auth0Client, init] = createResource<Auth0Client>();
-  const [isAuthenticated, setIsAuthenticated] = createSignal<
-    boolean | undefined
-  >(undefined);
-  const [user, setUser] = createSignal();
+
   const auth0ClientPromise = createAuth0Client({
     domain: props.domain,
     client_id: props.clientId,
@@ -45,7 +41,13 @@ export function Auth0(props: Auth0Props) {
     redirect_uri: props.loginRedirectUri
   });
 
-  init(async () => {
+  const [isAuthenticated, setIsAuthenticated] = createSignal<
+    boolean | undefined
+  >(undefined);
+
+  const [user, setUser] = createSignal();
+
+  const [auth0Client] = createResource<Auth0Client>(async () => {
     const client = await auth0ClientPromise;
     const url = props.getUrl!();
 
@@ -59,6 +61,7 @@ export function Auth0(props: Auth0Props) {
 
     return client;
   });
+
   return (
     <Auth0Context.Provider
       value={{
