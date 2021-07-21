@@ -1,6 +1,6 @@
 {
   "name": "@rturnq/solid-auth0",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Auth0 integration for solid-js",
   "author": "Ryan Turnquist",
   "license": "MIT",
@@ -8,9 +8,14 @@
     "type": "git",
     "url": "https://github.com/rturnq/solid-auth0"
   },
-  "source": "src",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "solid": "./dist/index.jsx",
+      "default": "./dist/build/index.js"
+    }
+  },
+  "main": "dist/build/index.cjs.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc&&rollup -c",
@@ -28,7 +33,7 @@
     "@auth0/auth0-spa-js": "1.6.5"
   },
   "peerDependencies": {
-    "solid-js": "^1.0.3"
+    "solid-js": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
