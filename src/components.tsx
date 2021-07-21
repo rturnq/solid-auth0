@@ -16,7 +16,7 @@ export const useAuth0 = () => useContext(Auth0Context);
 export interface Auth0Props {
   children: JSX.Element;
   domain: string;
-  audience: string;
+  audience?: string;
   clientId: string;
   loginRedirectUri: string;
   logoutRedirectUri: string;
