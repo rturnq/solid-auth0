@@ -35,7 +35,7 @@ import { Auth0 } from '@rturnq/solid-auth0';
 Access the auth context elsewhere in your application
 
 ```tsx
-import { useAuth0 } from '@rturn/solid-auth0';
+import { useAuth0 } from '@rturnq/solid-auth0';
 
 () => {
   const auth = useAuth0();
@@ -93,7 +93,7 @@ interface Props {
   domain: string;
   
   // Audience as configured in Auth0
-  audience: string;
+  audience?: string;
 
   // Client_Id as configured in Auth0
   clientId: string;
